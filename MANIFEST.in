@@ -1,0 +1,4 @@
+graft pytickets/static
+graft pytickets/**templates
+graft tests
+global-exclude *.pyc
