@@ -8,7 +8,7 @@ def create_app(settings_object='pytickets.config.DevConfig'):
 
     @app.route('/hello')
     def hello():
-        x = app.config.get('ENVIRONMENT')
-        return f'ENVIRONMENT: {x}'
+        app_env = app.config.get('ENVIRONMENT')
+        return f'ENVIRONMENT: {app_env}'
 
     return app
