@@ -11,6 +11,9 @@ def create_app(settings_object='pytickets.config.ProdConfig'):
     @app.route('/hello')
     def hello():
         app_env = app.config.get('ENVIRONMENT')
-        return f'ENVIRONMENT: {app_env}'
+
+    from . import auth
+    app.register_blueprint(auth.bp)
+    app.add_url_rule('/', endpoint='auth.index')
 
     return app

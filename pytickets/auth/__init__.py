@@ -1,0 +1,10 @@
+from flask import Blueprint
+from flask.templating import render_template
+
+bp = Blueprint('auth', __name__, template_folder='templates',
+               url_prefix='/auth')
+
+
+@bp.route('/')
+def index():
+    return render_template('index.html')
