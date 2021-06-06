@@ -1,3 +1,4 @@
+include pytickets/client_secrets.json
 graft pytickets/static
 graft pytickets/**templates
 graft tests
