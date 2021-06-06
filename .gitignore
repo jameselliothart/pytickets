@@ -1,1 +1,3 @@
 __pycache__
+client_secrets.json
+.okta.env
