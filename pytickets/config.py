@@ -4,7 +4,7 @@ _DUMMY_SECRET = 'a-dummy-key'
 
 
 def _check_secret(secret, dummy_secret):
-    if secret == dummy_secret or len(secret) == 0:
+    if secret == dummy_secret or secret is None or len(secret) == 0:
         raise ValueError('Must set PYTICKETS_SECRET_KEY')
     return True
 
