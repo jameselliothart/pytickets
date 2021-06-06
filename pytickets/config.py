@@ -4,7 +4,7 @@ _DUMMY_SECRET = 'a-dummy-key'
 
 
 def _check_secret(secret, dummy_secret):
-    if secret == dummy_secret or secret is None or len(secret) == 0:
+    if secret == dummy_secret or len(secret) == 0:
         raise ValueError('Must set PYTICKETS_SECRET_KEY')
     return True
 
@@ -28,4 +28,6 @@ class DevConfig(Config):
 
 class ProdConfig(Config):
     ENVIRONMENT = 'PROD'
-    _CHECK = _check_secret(os.getenv('PYTICKETS_SECRET_KEY'), _DUMMY_SECRET)
+
+    def __init__(self):
+        self._check = _check_secret(self.SECRET_KEY, _DUMMY_SECRET)
