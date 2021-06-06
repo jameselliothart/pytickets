@@ -1,6 +1,7 @@
 import os
 
 _DUMMY_SECRET = 'a-dummy-key'
+OKTA_SECRETS_FILE = 'pytickets/client_secrets.json'
 
 
 def _check_secret(secret, dummy_secret):
@@ -14,6 +15,17 @@ class Config():
     DEBUG = False
     TESTING = False
     SECRET_KEY = os.getenv('PYTICKETS_SECRET_KEY', _DUMMY_SECRET)
+
+    OIDC_CLIENT_SECRETS = OKTA_SECRETS_FILE
+    OIDC_ID_TOKEN_COOKIE_SECURE = os.getenv('OKTA_REDIRECT_URIS')[:5] == 'https'
+    OIDC_CALLBACK_ROUTE = "/oidc/callback"
+    OIDC_SCOPES = ["openid", "email", "profile"]
+
+    DB_SERVER = None
+
+    @property
+    def DATABASE_URI(self):
+        return f"mysql://user@{self.DB_SERVER}/foo"
 
 
 class TestConfig(Config):
