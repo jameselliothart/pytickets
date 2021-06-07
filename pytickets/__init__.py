@@ -21,6 +21,7 @@ def create_app(settings_object='pytickets.config.ProdConfig'):
 
     @app.before_request
     def before_request():
+        g.environment = app.config.get('ENVIRONMENT')  # pylint: disable=assigning-non-slot
         if oidc.user_loggedin:
             g.user = oidc.user_getinfo(  # pylint: disable=assigning-non-slot
                 ["sub", "name", "email"])
