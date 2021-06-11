@@ -21,11 +21,8 @@ class Config():
     OIDC_CALLBACK_ROUTE = "/oidc/callback"
     OIDC_SCOPES = ["openid", "email", "profile"]
 
-    DB_SERVER = None
-
-    @property
-    def DATABASE_URI(self):
-        return f"mysql://user@{self.DB_SERVER}/foo"
+    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class TestConfig(Config):
