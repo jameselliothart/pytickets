@@ -15,7 +15,7 @@ def now_utc():
 class _Metadata():
     updated_on: datetime = None
     created_on: datetime = now_utc()
-    _id: uuid.uuid4 = uuid.uuid4()
+    id: uuid.uuid4 = uuid.uuid4()
 
 
 @dataclass(frozen=True)
@@ -31,38 +31,38 @@ class Resolution():
 
 
 @dataclass(frozen=True)
-class Item(_Metadata, Resolution, Details):
+class Ticket(_Metadata, Resolution, Details):
     pass
 
 
 @dataclass(frozen=True)
-class NotStarted(Item):
+class InProgress(Ticket):
     pass
 
 
 @dataclass(frozen=True)
-class InProgress(Item):
+class Completed(Ticket):
     pass
 
 
 @dataclass(frozen=True)
-class Completed(Item):
-    pass
+class TicketCompleted():
+    item: Completed
 
 
 def new(details: Details):
-    return NotStarted(**asdict(details))
+    return Ticket(**asdict(details))
 
 
-def not_started(item: Item):
-    return replace(NotStarted(**asdict(item)), updated_on = now_utc(), completed_on = None)
+def not_started(item: Ticket):
+    return replace(Ticket(**asdict(item)), updated_on = now_utc(), completed_on = None)
 
 
-def in_progress(item: Item):
+def in_progress(item: Ticket):
     return replace(InProgress(**asdict(item)), updated_on = now_utc(), completed_on = None)
 
 
-def complete(item: Item):
+def complete(item: Ticket):
     return replace(Completed(**asdict(item)), completed_on = now_utc())
 
 
