@@ -1,5 +1,9 @@
+from pytickets.config import Config
+from pytickets.adapters.orm import mapper_registry
+
 from logging.config import fileConfig
 
+from sqlalchemy import create_engine
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
@@ -15,9 +19,7 @@ fileConfig(config.config_file_name)
 
 # add your model's MetaData object here
 # for 'autogenerate' support
-# from myapp import mymodel
-# target_metadata = mymodel.Base.metadata
-target_metadata = None
+target_metadata = mapper_registry.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
@@ -56,11 +58,12 @@ def run_migrations_online():
     and associate a connection with the context.
 
     """
-    connectable = engine_from_config(
-        config.get_section(config.config_ini_section),
-        prefix="sqlalchemy.",
-        poolclass=pool.NullPool,
-    )
+    # connectable = engine_from_config(
+    #     config.get_section(config.config_ini_section),
+    #     prefix="sqlalchemy.",
+    #     poolclass=pool.NullPool,
+    # )
+    connectable = create_engine(Config.SQLALCHEMY_DATABASE_URI)
 
     with connectable.connect() as connection:
         context.configure(
