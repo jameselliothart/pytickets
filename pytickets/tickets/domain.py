@@ -11,41 +11,41 @@ def now_utc():
     return datetime.now().astimezone(timezone.utc)
 
 
-@dataclass(frozen=True)
+@dataclass
 class _Metadata():
     updated_on: datetime = None
     created_on: datetime = now_utc()
     id: uuid.uuid4 = uuid.uuid4()
 
 
-@dataclass(frozen=True)
+@dataclass
 class Details():
     summary: str
     description: str = None
 
 
-@dataclass(frozen=True)
+@dataclass
 class Resolution():
     resolution: str = None
     completed_on: datetime = None
 
 
-@dataclass(frozen=True)
+@dataclass
 class Ticket(_Metadata, Resolution, Details):
     pass
 
 
-@dataclass(frozen=True)
+@dataclass
 class InProgress(Ticket):
     pass
 
 
-@dataclass(frozen=True)
+@dataclass
 class Completed(Ticket):
     pass
 
 
-@dataclass(frozen=True)
+@dataclass
 class TicketCompleted():
     item: Completed
 
