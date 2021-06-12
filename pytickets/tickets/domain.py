@@ -17,6 +17,9 @@ class _Metadata():
     created_on: datetime = now_utc()
     id: uuid.uuid4 = uuid.uuid4()
 
+    def replace(self, **changes):
+        return replace(self, updated_on=now_utc(), **changes)
+
 
 @dataclass
 class Details():
@@ -55,19 +58,25 @@ def new(details: Details):
 
 
 def not_started(item: Ticket):
-    return replace(Ticket(**asdict(item)), updated_on = now_utc(), completed_on = None)
+    return Ticket(
+        **asdict(item.replace(completed_on=None))
+    )
 
 
 def in_progress(item: Ticket):
-    return replace(InProgress(**asdict(item)), updated_on = now_utc(), completed_on = None)
+    return InProgress(
+        **asdict(item.replace(completed_on=None))
+    )
 
 
-def complete(item: Ticket):
-    return replace(Completed(**asdict(item)), completed_on = now_utc())
+def complete(item: Ticket, resolution: Resolution):
+    return Completed(
+        **asdict(item.replace(**asdict(resolution)))
+    )
 
 
 if __name__ == '__main__':
     d = Details('do something')
     ticket = new(d)
-    prog = complete(ticket)
+    prog = complete(ticket, Resolution('resolved', now_utc()))
     print(prog)
