@@ -1,6 +1,7 @@
 import uuid
 from dataclasses import asdict, dataclass, replace
 from datetime import datetime, timedelta, timezone
+from typing import Any
 
 
 def as_cst(t: datetime):
@@ -49,8 +50,36 @@ class Completed(Ticket):
 
 
 @dataclass
-class TicketCompleted():
-    item: Completed
+class Command():
+    pass
+
+
+@dataclass
+class CreateTicket(Command):
+    summary: str
+    description: str
+
+
+@dataclass
+class CompleteTicket(Command):
+    id: uuid.uuid4
+    resolution: str
+    completed_on: datetime
+
+
+@dataclass
+class Event():
+    value: Any
+
+
+@dataclass
+class TicketCreated(Event):
+    value: Ticket
+
+
+@dataclass
+class TicketCompleted(Event):
+    value: Completed
 
 
 def new(details: Details):
