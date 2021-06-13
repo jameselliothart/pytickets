@@ -21,8 +21,8 @@ def new_complete_ticket_handler(session_factory: sessionmaker):
             t = session.query(ticket.Ticket).filter_by(id=cmd.id).first()
             if t is not None:
                 completed = ticket.complete(t, cmd.resolution)
-                session.query(ticket.Ticket).filter_by(id=cmd.id).delete()
-                session.add(completed)
+                session.query(ticket.Ticket).filter_by(id=cmd.id).update(
+                    status=ticket.STATUSES[ticket.Completed], **asdict(completed))
                 session.commit()
         return ticket.TicketCompleted(completed)
     return _complete_ticket_handler
