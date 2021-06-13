@@ -22,9 +22,6 @@ class Config():
     OIDC_CALLBACK_ROUTE = "/oidc/callback"
     OIDC_SCOPES = ["openid", "email", "profile"]
 
-    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-
 
 class TestConfig(Config):
     ENVIRONMENT = 'TEST'
@@ -41,3 +38,7 @@ class ProdConfig(Config):
 
     def __init__(self):
         self._check = _check_secret(self.SECRET_KEY, _DUMMY_SECRET)
+
+
+def get_datebase_uri():
+    return os.environ['DATABASE_URL']
