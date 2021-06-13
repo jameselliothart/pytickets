@@ -26,17 +26,17 @@ def map_entities():
     mapper_registry.map_imperatively(ticket.Ticket,
                                      ticket_table,
                                      polymorphic_on='status',
-                                     polymorphic_identity='NotStarted',
+                                     polymorphic_identity=ticket.STATUSES[ticket.Ticket],
                                      )
     mapper_registry.map_imperatively(ticket.InProgress,
                                      ticket_table,
                                      inherits=ticket.Ticket,
-                                     polymorphic_identity='InProgress'
+                                     polymorphic_identity=ticket.STATUSES[ticket.InProgress]
                                      )
     mapper_registry.map_imperatively(ticket.Completed,
                                      ticket_table,
                                      inherits=ticket.Ticket,
-                                     polymorphic_identity='Completed'
+                                     polymorphic_identity=ticket.STATUSES[ticket.Completed]
                                      )
 
 

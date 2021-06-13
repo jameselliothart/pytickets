@@ -49,6 +49,13 @@ class Completed(Ticket):
     pass
 
 
+STATUSES = {
+    Ticket: 'NotStarted',
+    InProgress: 'InProgress',
+    Completed: 'Completed'
+}
+
+
 @dataclass
 class Command():
     pass
