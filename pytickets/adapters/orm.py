@@ -1,6 +1,6 @@
 from uuid import uuid4
-from sqlalchemy import MetaData
-from sqlalchemy.orm import registry
+from sqlalchemy import create_engine
+from sqlalchemy.orm import registry, sessionmaker
 from sqlalchemy.sql.schema import Column, Table
 from sqlalchemy.sql.sqltypes import DateTime, String
 from sqlalchemy.dialects.postgresql import UUID
@@ -38,3 +38,7 @@ def map_entities():
                                      inherits=ticket.Ticket,
                                      polymorphic_identity='Completed'
                                      )
+
+
+def new_session_factory(url, isolation_level="REPEATABLE READ", **kwagrs):
+    return sessionmaker(create_engine(url, isolation_level=isolation_level, **kwagrs))
