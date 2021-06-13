@@ -17,7 +17,8 @@ class Config():
     SECRET_KEY = os.getenv('PYTICKETS_SECRET_KEY', _DUMMY_SECRET)
 
     OIDC_CLIENT_SECRETS = OKTA_SECRETS_FILE
-    OIDC_ID_TOKEN_COOKIE_SECURE = os.getenv('OKTA_REDIRECT_URIS')[:5] == 'https'
+    OIDC_ID_TOKEN_COOKIE_SECURE = os.getenv(
+        'OKTA_REDIRECT_URIS')[:5] == 'https'
     OIDC_CALLBACK_ROUTE = "/oidc/callback"
     OIDC_SCOPES = ["openid", "email", "profile"]
 
