@@ -22,7 +22,7 @@ ticket_table = Table(
 )
 
 
-def map():
+def map_entities():
     mapper_registry.map_imperatively(ticket.Ticket,
                                      ticket_table,
                                      polymorphic_on='status',
