@@ -11,13 +11,13 @@ mapper_registry = registry()
 ticket_table = Table(
     'tickets',
     mapper_registry.metadata,
-    Column('status', String(20)),
+    Column('status', String(ticket.SCHEMA['status'])),
     Column('id', UUID(as_uuid=True), primary_key=True, default=uuid4),
     Column('created_on', DateTime()),
     Column('updated_on', DateTime()),
-    Column('summary', String(75)),
-    Column('description', String(1000)),
-    Column('resolution', String(500)),
+    Column('summary', String(ticket.SCHEMA['summary'])),
+    Column('description', String(ticket.SCHEMA['description'])),
+    Column('resolution', String(ticket.SCHEMA['resolution'])),
     Column('completed_on', DateTime()),
 )
 

@@ -55,6 +55,13 @@ STATUSES = {
     Completed: 'Completed'
 }
 
+SCHEMA = {
+    'status': 20,
+    'summary': 75,
+    'description': 1000,
+    'resolution': 500,
+}
+
 
 @dataclass
 class Command():
