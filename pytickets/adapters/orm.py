@@ -22,6 +22,10 @@ ticket_table = Table(
 )
 
 
+def new_session_factory(url, isolation_level="REPEATABLE READ", **kwagrs):
+    return sessionmaker(create_engine(url, isolation_level=isolation_level, **kwagrs))
+
+
 def map_entities():
     mapper_registry.map_imperatively(ticket.Ticket,
                                      ticket_table,
@@ -38,7 +42,3 @@ def map_entities():
                                      inherits=ticket.Ticket,
                                      polymorphic_identity=ticket.STATUSES[ticket.Completed]
                                      )
-
-
-def new_session_factory(url, isolation_level="REPEATABLE READ", **kwagrs):
-    return sessionmaker(create_engine(url, isolation_level=isolation_level, **kwagrs))
