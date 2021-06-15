@@ -35,6 +35,9 @@ def create_app(settings_object='pytickets.config.ProdConfig'):
     from . import tickets
     app.register_blueprint(tickets.bp)
 
+    from .adapters.orm import map_entities
+    map_entities()
+
     return app
 
 
