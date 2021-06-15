@@ -2,10 +2,17 @@
 
 {% block body %}
 <h1 id="text-center">{% block title %}Dashboard{% endblock %}</h1>
-<div id="row">
+<!-- <div id="row">
     <div class="col-sm-8 offset-sm-2">
         <p>Welcome to the dashboard, {{ g.user.name }}!</p>
         <p>Your user id is {{ g.user.sub }}!</p>
     </div>
-</div>
+</div> -->
+{% for ticket in tickets %}
+  <div class="card">
+    <div class="card-body">
+      <p class="card-text">{{ ticket.summary }}</p>
+    </div>
+  </div>
+{% endfor %}
 {% endblock %}
