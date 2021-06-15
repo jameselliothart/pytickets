@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+{% from '_formhelpers.html' import render_field %}
+
+{% block body %}
+<h1 id="text-center">{% block title %}New Ticket{% endblock %}</h1>
+<form method="POST">
+  {{ form.hidden_tag() }}
+  <dl>
+    {{ render_field(form.summary) }}
+    {{ render_field(form.description) }}
+  </dl>
+  <input type=submit value=Create>
+</form>
+{% endblock %}
