@@ -2,6 +2,7 @@
 
 {% block body %}
 <h1 id="text-center">{% block title %}Dashboard{% endblock %}</h1>
+<a class="btn btn-primary mb-3" role="button" href="{{ url_for('tickets.new') }}">Create Ticket</a>
 <!-- <div id="row">
     <div class="col-sm-8 offset-sm-2">
         <p>Welcome to the dashboard, {{ g.user.name }}!</p>
