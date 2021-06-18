@@ -41,4 +41,6 @@ class ProdConfig(Config):
 
 
 def get_datebase_uri():
-    return os.environ['DATABASE_URL']
+    uri = os.environ['DATABASE_URL']
+    uri = uri.replace("postgres://", "postgresql://", 1)
+    return uri
