@@ -21,7 +21,7 @@ create_ticket_handler = partial(create_ticket_handler, session_factory)
 complete_ticket_handler = partial(complete_ticket_handler, session_factory)
 
 
-@bp.route('/dashboard')
+@bp.route('/')
 @oidc.require_login
 def dashboard():
     tickets = get_open(session_factory)
