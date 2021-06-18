@@ -1,4 +1,4 @@
-from pytickets.config import Config
+from pytickets.config import get_datebase_uri
 from pytickets.adapters.orm import mapper_registry
 
 from logging.config import fileConfig
@@ -63,7 +63,7 @@ def run_migrations_online():
     #     prefix="sqlalchemy.",
     #     poolclass=pool.NullPool,
     # )
-    connectable = create_engine(Config.SQLALCHEMY_DATABASE_URI)
+    connectable = create_engine(get_datebase_uri())
 
     with connectable.connect() as connection:
         context.configure(

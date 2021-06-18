@@ -32,8 +32,8 @@ def create_app(settings_object='pytickets.config.ProdConfig'):
     app.register_blueprint(home.bp)
     app.add_url_rule('/', endpoint='home.index')
 
-    from . import tickets
-    app.register_blueprint(tickets.bp)
+    from .tickets import views
+    app.register_blueprint(views.bp)
 
     from .adapters.orm import map_entities
     map_entities()
