@@ -14,9 +14,12 @@ def create_ticket_handler(session_factory: sessionmaker, create_ticket: ticket.C
 
 def complete_ticket_handler(session_factory: sessionmaker, cmd: ticket.CompleteTicket):
     with session_factory() as session:
-        if t := session.query(ticket.Ticket).filter_by(id=cmd.id).first() is not None:
-            completed = ticket.complete(t, cmd.resolution)
-            session.query(ticket.Ticket).filter_by(id=cmd.id).update(
-                status=ticket.STATUSES[ticket.Completed], **asdict(completed))
+        if (t := session.query(ticket.Ticket).filter_by(id=cmd.id).first()) is not None:
+            resolution = ticket.Resolution(cmd.resolution, ticket.now_utc())
+            completed = ticket.complete(t, resolution)
+            updated_values = {'status': ticket.STATUSES[ticket.Completed]}
+            updated_values.update(asdict(completed))
+            session.query(ticket.Ticket).filter_by(
+                id=cmd.id).update(updated_values)
             session.commit()
     return ticket.TicketCompleted(completed)
