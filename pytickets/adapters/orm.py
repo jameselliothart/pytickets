@@ -1,6 +1,7 @@
 from uuid import uuid4
 from sqlalchemy import create_engine
 from sqlalchemy.orm import registry, sessionmaker
+from sqlalchemy.sql.expression import select
 from sqlalchemy.sql.schema import Column, Table
 from sqlalchemy.sql.sqltypes import DateTime, String
 from sqlalchemy.dialects.postgresql import UUID
@@ -24,6 +25,19 @@ ticket_table = Table(
 
 def new_session_factory(url, isolation_level="REPEATABLE READ", **kwagrs):
     return sessionmaker(create_engine(url, isolation_level=isolation_level, **kwagrs))
+
+
+def get_all(session_factory: sessionmaker):
+    with session_factory() as session:
+        return session.query(ticket.Ticket).all()
+
+
+def get_open(session_factory: sessionmaker):
+    with session_factory() as session:
+        stmt = select(ticket_table).where(
+            ticket_table.c.status.notin_([ticket.STATUSES[ticket.Completed]])
+        )
+        return session.execute(stmt).all()
 
 
 def map_entities():

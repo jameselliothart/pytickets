@@ -3,10 +3,9 @@ from flask.helpers import flash, url_for
 from werkzeug.utils import redirect
 from pytickets.tickets.domain import CompleteTicket, CreateTicket, now_utc
 from .forms import CompleteTicketForm, CreateTicketForm
-from pytickets.tickets.handlers.queries import get_open
 from pytickets.tickets.handlers.sql import complete_ticket_handler, create_ticket_handler
 from pytickets.config import get_datebase_uri
-from pytickets.adapters.orm import new_session_factory
+from pytickets.adapters.orm import new_session_factory, get_open
 from flask import Blueprint
 from flask.templating import render_template
 from pytickets import oidc
