@@ -1,0 +1,20 @@
+<div class="modal fade" id="completeTicket" tabindex="-1" aria-labelledby="completeTicketLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="completeTicketLabel">Complete Ticket</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="{{ url_for('tickets.complete', ticket_id = ticket.id) }}">
+          {{ complete_form.hidden_tag() }}
+          <div class="mb-3">
+            {{ complete_form.resolution.label(class="form-label") }}
+            {{ complete_form.resolution(class="form-control", rows="3") }}
+          </div>
+          {{ complete_form.submit(class="btn btn-primary") }}
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
